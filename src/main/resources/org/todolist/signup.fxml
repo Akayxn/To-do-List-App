@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="519.0" prefWidth="658.0" style="-fx-background-color: #366899;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.todolist.SignUpController">
+    <left>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #366899;" BorderPane.alignment="CENTER">
+            <children>
+                <ImageView fitHeight="519.0" fitWidth="296.0" pickOnBounds="true" smooth="false">
+                    <image>
+                        <Image url="@../../images/signup-image.jpg" />
+                    </image>
+                </ImageView>
+            </children>
+        </AnchorPane>
+    </left>
+    <right>
+        <AnchorPane prefHeight="519.0" prefWidth="410.0" style="-fx-background-color: #4682A1;" BorderPane.alignment="CENTER">
+            <children>
+                <Label layoutX="29.0" layoutY="37.0" prefHeight="93.0" prefWidth="304.0" text="Create your acccount" textFill="WHITE">
+                    <font>
+                        <Font name="Poppins Bold" size="27.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="usernameField" layoutX="31.0" layoutY="130.0" prefHeight="45.0" prefWidth="300.0" promptText="Username" style="-fx-background-color: white; -fx-background-radius: 10px; -fx-border-color: none;" />
+                <PasswordField fx:id="passwordField" layoutX="30.0" layoutY="196.0" prefHeight="45.0" prefWidth="300.0" promptText="Password" style="-fx-background-color: white; -fx-background-radius: 10px; -fx-border-color: none;" />
+            <PasswordField fx:id="confirmPasswordField" layoutX="29.0" layoutY="263.0" prefHeight="45.0" prefWidth="300.0" promptText="Confirm Password" style="-fx-background-color: white; -fx-background-radius: 10px; -fx-border-color: none;" />
+                <Button fx:id="submitBtn" layoutX="30.0" layoutY="334.0" mnemonicParsing="false" onAction="#registerUser" prefHeight="42.0" prefWidth="298.0" style="-fx-background-color: #305CDE; -fx-background-radius: 10px;" text="Sign Up" textFill="WHITE">
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                    <font>
+                        <Font name="System Bold" size="13.0" />
+                    </font>
+                </Button>
+                <Label layoutX="39.0" layoutY="393.0" prefHeight="28.0" prefWidth="159.0" text="Have an account ?" textFill="WHITE">
+                    <font>
+                        <Font name="Poppins Regular" size="13.0" />
+                    </font>
+                </Label>
+                <Button fx:id="LoginPageBtn" layoutX="129.0" layoutY="391.0" minWidth="51.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="141.0" style="-fx-background-color: none; -fx-background-radius: 10px; -fx-border-color: none; -fx-border-radius: 10px;" text="Login now" textFill="#00ff55">
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+                </Button>
+                <Label fx:id="invalidcredLabel" layoutX="29.0" layoutY="102.0" prefHeight="28.0" prefWidth="159.0" textFill="RED">
+                    <font>
+                        <Font name="Poppins Regular" size="13.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+    </right>
+</BorderPane>
