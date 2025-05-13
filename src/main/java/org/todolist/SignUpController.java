@@ -1,4 +1,5 @@
 package org.todolist;
+import javafx.scene.paint.Color;
 import org.todolist.models.ConnectDB;
 
 
@@ -10,9 +11,11 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SignUpController {
-
+    private static List<String> usernameList;
     @FXML
     private TextField usernameField;
     @FXML
@@ -26,10 +29,22 @@ public class SignUpController {
     @FXML
     private Label invalidcredLabel;
 
+    static String dbFilePath = "userinfo.db";
+    static String tableName = "users";
+    static {
+        try {
+            Statement statement = checkConnection().createStatement();
+            String createTable = "CREATE TABLE IF NOT EXISTS users(username TEXT PRIMARY KEY,password TEXT)";
+            statement.execute(createTable);
+            usernameList = ListUsername();
 
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         LoginPageBtn.setOnAction(event -> {
             Main main = new Main();
             try {
@@ -38,52 +53,93 @@ public class SignUpController {
                 throw new RuntimeException(e);
             }
         });
+        submitBtn.setOnAction(event -> {
+            try {
+                registerUser();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
 
-        try {
-            Statement statement = checkConnection().createStatement();
-            String createTable = "CREATE TABLE IF NOT EXISTS users(username TEXT PRIMARY KEY,password TEXT)";
-            statement.execute(createTable);
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-
-
+        });
     }
-
 
 
     @FXML
-    private void registerUser(){
+    private void registerUser() throws SQLException {
+        Main main = new Main(); // to use the change scene
+        String username = usernameField.getText().toLowerCase(); // storing the textfield values into the username
+        CharSequence passwordChar = passwordField.getCharacters(); // making the pass into charseq
+        String password = passwordChar.toString();
+        CharSequence confirmPasswordChar = confirmPasswordField.getCharacters();
+        String confirmPassword = confirmPasswordChar.toString();
 
+        if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+            invalidcredLabel.setText("All fields are required!");
+            invalidcredLabel.setTextFill(Color.RED);
+            return;
+        }
+
+
+        if (usernameList.contains(username)) {
+            invalidcredLabel.setText("Username already taken.");
+            invalidcredLabel.setTextFill(Color.RED);
+            return;
+        }
+
+        if (!password.equals(confirmPassword)) {
+            invalidcredLabel.setText("Passwords do not match!");
+            invalidcredLabel.setTextFill(Color.RED);
+            return;
+        }
+
+        String labelStatus = insertNewUser(username, password);
+        invalidcredLabel.setText(labelStatus);
+        invalidcredLabel.setTextFill(Color.GREEN);
     }
 
-    private Connection checkConnection(){
+
+    private static Connection checkConnection() {
         ConnectDB db = new ConnectDB();
         Connection connection = db.getConnection();
         return connection;
     }
 
-    private void checkRegistration(){
-        Main main = new Main(); // to use the change scene
-        String username=usernameField.getText(); // storing the textfield values into the username
-        CharSequence passwordChar =passwordField.getCharacters(); // making the pass into charseq
-        String password = passwordChar.toString();
 
-
+    public String insertNewUser(String username, String password) throws SQLException {
+        Connection connection = checkConnection();
+        Statement statement = connection.createStatement();
+        if (connection != null) {
+            try {
+                String sql = "INSERT INTO " + tableName + " values(?,?)";
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setString(1, username);
+                preparedStatement.setString(2, password);
+                preparedStatement.executeUpdate();
+                usernameList.add(username);
+                return "Successfully created user: " + username;
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return null;
     }
 
+    private static List<String> ListUsername() {
+        String columnName = "username";
+        List<String> lines = new ArrayList<>();
+        String url = "jdbc:sqlite:" + dbFilePath;
 
-    public void insertNewUser(){
-        Connection connection = checkConnection();
-        if(connection!=null){
-
-
-
-
+        try {
+            Connection connection = checkConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT " + columnName + " FROM " + tableName);
+            while (resultSet.next()) {
+                String line = resultSet.getString(columnName);
+                lines.add(line);
+            }
+            return lines;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
-
-
 }

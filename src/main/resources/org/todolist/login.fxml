@@ -24,16 +24,16 @@
       </AnchorPane>
    </left>
    <right>
-      <AnchorPane prefHeight="519.0" prefWidth="410.0" style="-fx-background-color: #4B3B8B;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="519.0" prefWidth="410.0" style="-fx-background-color: #2D1B4F;" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="143.0" layoutY="43.0" prefHeight="93.0" prefWidth="85.0" text="Login" textFill="WHITE">
+            <Label layoutX="73.0" layoutY="37.0" prefHeight="93.0" prefWidth="221.0" text="Welcome Back" textFill="WHITE">
                <font>
                   <Font name="Poppins Bold" size="27.0" />
                </font>
             </Label>
-            <TextField fx:id="usernameField" layoutX="35.0" layoutY="144.0" prefHeight="45.0" prefWidth="300.0" promptText="Username" style="-fx-background-color: white; -fx-background-radius: 10px; -fx-border-color: none;" />
-            <PasswordField fx:id="passwordField" layoutX="35.0" layoutY="208.0" prefHeight="45.0" prefWidth="300.0" promptText="Password" style="-fx-background-color: white; -fx-background-radius: 10px; -fx-border-color: none;" />
-            <Button fx:id="submitBtn" layoutX="34.0" layoutY="277.0" mnemonicParsing="false" onAction="#userLogIn" prefHeight="42.0" prefWidth="298.0" style="-fx-background-color: #6E00B3; -fx-background-radius: 10px;" text="Login" textFill="WHITE">
+            <TextField fx:id="usernameField" layoutX="35.0" layoutY="144.0" prefHeight="45.0" prefWidth="300.0" promptText="Username" style="-fx-background-color: #F2F2F2; -fx-background-radius: 10px; -fx-border-color: none;" />
+            <PasswordField fx:id="passwordField" layoutX="35.0" layoutY="208.0" prefHeight="45.0" prefWidth="300.0" promptText="Password" style="-fx-background-color: #F2F2F2; -fx-background-radius: 10px; -fx-border-color: none;" />
+            <Button fx:id="submitBtn" layoutX="34.0" layoutY="277.0" mnemonicParsing="false" onAction="#userLogIn" prefHeight="42.0" prefWidth="298.0" style="-fx-background-color: #6A0DAD; -fx-background-radius: 10px;" text="Login" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -41,17 +41,20 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Button>
-            <Label layoutX="39.0" layoutY="329.0" prefHeight="28.0" prefWidth="159.0" text="Don't have an account?" textFill="WHITE">
+            <Label layoutX="39.0" layoutY="329.0" prefHeight="28.0" prefWidth="159.0" text="Don't have an account?" textFill="#cccccc">
                <font>
                   <Font name="Poppins Regular" size="13.0" />
                </font>
             </Label>
-            <Button fx:id="signupPageBtn" layoutX="172.0" layoutY="328.0" minWidth="51.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="141.0" style="-fx-background-color: none; -fx-background-radius: 10px; -fx-border-color: none; -fx-border-radius: 10px;" text="Sign up now" textFill="#ff0505">
+            <Button fx:id="signupPageBtn" layoutX="172.0" layoutY="328.0" minWidth="51.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="141.0" style="-fx-background-color: none; -fx-background-radius: 10px; -fx-border-color: none; -fx-border-radius: 10px;" text="Sign up now" textFill="#00e0b8">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+               <font>
+                  <Font name="Poppins Bold" size="13.0" />
+               </font>
             </Button>
-            <Label fx:id="invalidcredLabel" layoutX="39.0" layoutY="116.0" prefHeight="28.0" prefWidth="159.0" textFill="RED">
+            <Label fx:id="invalidcredLabel" layoutX="39.0" layoutY="116.0" prefHeight="28.0" prefWidth="159.0" textFill="#ff6b6b">
                <font>
                   <Font name="Poppins Regular" size="13.0" />
                </font>
