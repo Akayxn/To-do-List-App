@@ -1,6 +1,8 @@
 package org.todolist;
 import javafx.scene.paint.Color;
+import lombok.Getter;
 import org.todolist.models.ConnectDB;
+
 
 
 import java.sql.*;
@@ -15,7 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SignUpController {
-    private static List<String> usernameList;
+    @Getter
+    private static final List<String> usernameList;
     @FXML
     private TextField usernameField;
     @FXML
@@ -66,7 +69,6 @@ public class SignUpController {
 
     @FXML
     private void registerUser() throws SQLException {
-        Main main = new Main(); // to use the change scene
         String username = usernameField.getText().toLowerCase(); // storing the textfield values into the username
         CharSequence passwordChar = passwordField.getCharacters(); // making the pass into charseq
         String password = passwordChar.toString();
@@ -98,7 +100,7 @@ public class SignUpController {
     }
 
 
-    private static Connection checkConnection() {
+    static Connection checkConnection() {
         ConnectDB db = new ConnectDB();
         Connection connection = db.getConnection();
         return connection;

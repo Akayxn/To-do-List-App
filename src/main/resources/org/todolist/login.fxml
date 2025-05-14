@@ -54,7 +54,7 @@
                   <Font name="Poppins Bold" size="13.0" />
                </font>
             </Button>
-            <Label fx:id="invalidcredLabel" layoutX="39.0" layoutY="116.0" prefHeight="28.0" prefWidth="159.0" textFill="#ff6b6b">
+            <Label fx:id="invalidcredLabel" layoutX="34.0" layoutY="253.0" prefHeight="28.0" prefWidth="291.0" textFill="#ff6b6b">
                <font>
                   <Font name="Poppins Regular" size="13.0" />
                </font>
