@@ -1,6 +1,7 @@
 package org.todolist;
 import javafx.scene.paint.Color;
 import lombok.Getter;
+import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.todolist.models.ConnectDB;
 
 
@@ -31,6 +32,8 @@ public class SignUpController {
     private Button LoginPageBtn;
     @FXML
     private Label invalidcredLabel;
+    private  Argon2PasswordEncoder encoder = new Argon2PasswordEncoder(32,64,1,15*1024,2);
+
 
     static String dbFilePath = "userinfo.db";
     static String tableName = "users";
@@ -65,7 +68,6 @@ public class SignUpController {
 
         });
     }
-
 
     @FXML
     private void registerUser() throws SQLException {
@@ -108,6 +110,7 @@ public class SignUpController {
 
 
     public String insertNewUser(String username, String password) throws SQLException {
+        var encodedPassword = encoder.encode(password);
         Connection connection = checkConnection();
         Statement statement = connection.createStatement();
         if (connection != null) {
@@ -115,7 +118,7 @@ public class SignUpController {
                 String sql = "INSERT INTO " + tableName + " values(?,?)";
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setString(1, username);
-                preparedStatement.setString(2, password);
+                preparedStatement.setString(2, encodedPassword);
                 preparedStatement.executeUpdate();
                 usernameList.add(username);
                 return "Successfully created user: " + username;

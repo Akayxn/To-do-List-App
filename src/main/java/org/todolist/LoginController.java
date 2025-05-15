@@ -6,7 +6,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
-import jdk.dynalink.beans.StaticClass;
+import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
+
 
 import java.io.IOException;
 import java.sql.*;
@@ -26,6 +27,7 @@ public class LoginController {
     private Label invalidcredLabel;
     @FXML
     private Button signupPageBtn;
+    private Argon2PasswordEncoder encoder = new Argon2PasswordEncoder(32,64,1,15*1024,2);
 
     static String dbFilePath = "userinfo.db";
     static String tableName = "users";
@@ -88,16 +90,16 @@ public class LoginController {
         Statement statement = connection.createStatement();
         if (connection != null) {
             try {
-                String sql = "SELECT * FROM " + tableName + " WHERE username=? AND password=?";
+                String sql = "SELECT * FROM " + tableName + " WHERE username=?";
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setString(1, username);
-                preparedStatement.setString(2, password);
                 ResultSet resultSet= preparedStatement.executeQuery();
 
                 if(resultSet.next()){
+                    String hashedPassword = resultSet.getString("password");
                     resultSet.close();
                     preparedStatement.close();
-                    return true;
+                    return encoder.matches(password,hashedPassword);
                 }
                 else{
                     resultSet.close();
