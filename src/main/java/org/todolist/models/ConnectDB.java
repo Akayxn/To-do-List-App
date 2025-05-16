@@ -13,7 +13,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
-public class ConnectDB {
+public final class ConnectDB {
 
     private Connection connection;
 
@@ -29,7 +29,6 @@ public class ConnectDB {
             e.printStackTrace();
 
         }
-
     }
 
 

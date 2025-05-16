@@ -34,6 +34,7 @@ public class SignUpController {
     private Label invalidcredLabel;
     private  Argon2PasswordEncoder encoder = new Argon2PasswordEncoder(32,64,1,15*1024,2);
 
+    private static ConnectDB db = new ConnectDB();
 
     static String dbFilePath = "userinfo.db";
     static String tableName = "users";
@@ -103,9 +104,7 @@ public class SignUpController {
 
 
     static Connection checkConnection() {
-        ConnectDB db = new ConnectDB();
-        Connection connection = db.getConnection();
-        return connection;
+        return db.getConnection();
     }
 
 
